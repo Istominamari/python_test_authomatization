@@ -1,0 +1,5 @@
+soap_wsdl_url: "https://speller.yandex.net/services/spellservice?WSDL"
+rest_login_url: "https://test-stand.gb.ru/gateway/login"
+rest_username: "OksanaY"
+rest_password: "7585650f10"
+rest_posts_url: "https://test-stand.gb.ru/api/posts"
