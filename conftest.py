@@ -1,7 +1,10 @@
 import pytest
 import yaml
 from rest import login
-from selenium_site import Site
+from selenium.webdriver import FirefoxOptions, Firefox, ChromeOptions, Chrome
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.firefox import GeckoDriverManager
+from webdriver_manager.chrome import ChromeDriverManager
 
 with open('config.yaml', encoding='utf-8') as f:
     config = yaml.safe_load(f)
@@ -32,42 +35,42 @@ def post_data():
     return "Как я провела лето.", "Рассказ о том, как я провела летние каникулы.", "Нормально."
 
 
-@pytest.fixture
-def selenium_site():
-    site = Site(config["selenium_address"])
-    yield site
-    site.quit()
-
-
-@pytest.fixture
-def locators():
-    return {
-        "login_input": """//*[@id="login"]/div[1]/label/input""",
-        "password_input": """//*[@id="login"]/div[2]/label/input""",
-        "login_button": "button",
-        "error_message": """//*[@id="app"]/main/div/div/div[2]/h2""",
-        "user_menu": """//*[@id="app"]/main/nav/ul/li[3]/a""",
-        "to_create_post_button": """//*[@id="create-btn"]""",
-        "post_title_input": """// * [ @ id="create-item"] / div / div / div[1] / div / label / input""",
-        "post_description_textarea": """//*[@id="create-item"]/div/div/div[2]/div/label/span/textarea""",
-        "post_content_textarea": """//*[@id="create-item"]/div/div/div[3]/div/label/span/textarea""",
-        "create_post_button": """//*[@id="create-item"]/div/div/div[7]/div/button""",
-        "new_post_title": """//*[@id="app"]/main/div/div[1]/h1"""
-    }
+@pytest.fixture(scope='session')
+def browser():
+    browser = config["selenium_browser"]
+    if browser == 'firefox':
+        service = Service(executable_path=GeckoDriverManager().install())
+        options = FirefoxOptions()
+        driver = Firefox(service=service, options=options)
+    else:
+        service = Service(executable_path=ChromeDriverManager().install())
+        options = ChromeOptions()
+        driver = Chrome(service=service, options=options)
+    driver.implicitly_wait(config["selenium_implicitly_wait"])
+    yield driver
+    driver.quit()
 
 
 @pytest.fixture
 def login_fail_data():
-    return {
-        "login": "test",
-        "password": "test",
-        "error_number": "401",
-    }
+    return "test", "test"
+
+
+@pytest.fixture
+def login_fail_error_code():
+    return "401"
 
 
 @pytest.fixture
 def login_success_data():
-    return {
-        "login": config["username"],
-        "password": config["password"],
-    }
+    return config["username"], config["password"]
+
+
+@pytest.fixture
+def contact_us_data():
+    return config["username"], config["contact_us_email"], "Test test test"
+
+
+@pytest.fixture
+def contact_us_alert_text():
+    return "Form successfully submitted"

@@ -3,7 +3,8 @@ rest_login_url: "https://test-stand.gb.ru/gateway/login"
 username: "OksanaY"
 password: "7585650f10"
 rest_posts_url: "https://test-stand.gb.ru/api/posts"
-selenium_address: "https://test-stand.gb.ru/login"
-selenium_sleep_time: 5
 selenium_browser: firefox
-selenium_chrome_driver_path: "../chromedriver-mac-x64/chromedriver"
+selenium_implicitly_wait: 5
+selenium_sleep_time: 5
+selenium_base_url: "https://test-stand.gb.ru"
+contact_us_email: "test@test.test"
