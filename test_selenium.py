@@ -11,7 +11,7 @@ from ViewPostPage import ViewPostPage
 class TestSelenium:
 
     def test_login_fail(self, browser, login_fail_data, login_fail_error_code):
-        logging.info("Start test \"test_login_fail\".")
+        logging.info("Start UI-test \"test_login_fail\".")
         page = LoginPage(browser)
         page.go_to_site()
         page.enter_login(login_fail_data[0])
@@ -21,7 +21,7 @@ class TestSelenium:
         assert page.get_error_text() == login_fail_error_code
 
     def test_login_success(self, browser, login_success_data):
-        logging.info("Start test \"test_login_success starting\".")
+        logging.info("Start UI-test \"test_login_success starting\".")
         login_page = LoginPage(browser)
         login_page.go_to_site()
 
@@ -34,7 +34,7 @@ class TestSelenium:
         assert posts_list_page.get_user_menu_text() == f'Hello, {login_success_data[0]}'
 
     def test_publish_post(self, browser, post_data):
-        logging.info("Start test \"test_publish_post\".")
+        logging.info("Start UI-test \"test_publish_post\".")
         posts_list_page = PostsListPage(browser)
         posts_list_page.go_to_site()
         posts_list_page.click_create_post_button()
@@ -51,7 +51,7 @@ class TestSelenium:
         assert view_post_page.get_post_title() == post_data[0]
 
     def test_contact_us_form_sending(self, browser, contact_us_data, contact_us_alert_text):
-        logging.info("Start test \"test_contact_us_form_sending\".")
+        logging.info("Start UI-test \"test_contact_us_form_sending\".")
         posts_list_page = PostsListPage(browser)
         posts_list_page.go_to_site()
         posts_list_page.click_to_contact_us_link()

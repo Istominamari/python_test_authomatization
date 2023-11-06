@@ -7,4 +7,9 @@ selenium_browser: firefox
 selenium_implicitly_wait: 5
 selenium_sleep_time: 5
 selenium_base_url: "https://test-stand.gb.ru"
-contact_us_email: "test@test.test"
+reporting_receiver: "pirozhkevich@list.ru"
+reporting_sender: "pirozhkevich@list.ru"
+reporting_password: "1sXeNY3RdBhKYsNNtCuq"
+reporting_smtp_host: "smtp.mail.ru"
+reporting_smtp_port: 587
+reporting_file_path: "./report.html"

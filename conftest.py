@@ -6,6 +6,8 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.firefox import GeckoDriverManager
 from webdriver_manager.chrome import ChromeDriverManager
 
+from send_report import send_report
+
 with open('config.yaml', encoding='utf-8') as f:
     config = yaml.safe_load(f)
 
@@ -27,7 +29,7 @@ def rest_login():
 
 @pytest.fixture
 def rest_title():
-    return "White cat"
+    return "ПРО КОТА"
 
 
 @pytest.fixture
@@ -68,9 +70,13 @@ def login_success_data():
 
 @pytest.fixture
 def contact_us_data():
-    return config["username"], config["contact_us_email"], "Test test test"
+    return config["username"], "test@test.test", "Test test test"
 
 
 @pytest.fixture
 def contact_us_alert_text():
     return "Form successfully submitted"
+
+
+def pytest_unconfigure():
+    send_report()

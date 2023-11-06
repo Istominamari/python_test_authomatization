@@ -1,22 +1,12 @@
 from BasePage import BasePage
-from selenium.webdriver.common.by import By
-
-
-class PostsListPageLocators:
-    USER_MENU = (By.XPATH, """//*[@id="app"]/main/nav/ul/li[3]/a""")
-    TO_CREATE_POST_BUTTON = (By.XPATH, """//*[@id="create-btn"]""")
-    TO_CONTACT_US_LINK = (By.XPATH, """//*[@id="app"]/main/nav/ul/li[2]/a""")
 
 
 class PostsListPage(BasePage):
     def get_user_menu_text(self):
-        user_menu = self.find_element(PostsListPageLocators.USER_MENU)
-        return user_menu.text
+        return self.get_text_from_element("USER_MENU_LINK")
 
     def click_create_post_button(self):
-        to_create_post_button = self.find_element(PostsListPageLocators.TO_CREATE_POST_BUTTON)
-        to_create_post_button.click()
+        self.click_on_element("GOTO_CREATE_POST_BUTTON")
 
     def click_to_contact_us_link(self):
-        to_contact_us_link = self.find_element(PostsListPageLocators.TO_CONTACT_US_LINK)
-        to_contact_us_link.click()
+        self.click_on_element("GOTO_CONTACT_US_LINK")
